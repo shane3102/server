@@ -12,10 +12,7 @@ services:
       timeout: 5s
       retries: 5
   chess-game-service:
-    container_name: illchess-game-service
     image: shane3102/illchess-game-service
-    ports:
-      - 8080:8080
     depends_on:
       game-db:
         condition: service_healthy
@@ -29,12 +26,9 @@ services:
 
   # Stockfish service
   chess-stockfish-service:
-    container_name: illchess-stockfish-service
     image: shane3102/illchess-stockfish-service
-    ports:
-      - 2137:2137
     environment:
-      - URLS_GAME-SERVICE=http://illchess-game-service:8080
+      - URLS_GAME-SERVICE=http://chess-game-service:8080
 
   # Player info service
   player-info-db:
@@ -54,10 +48,7 @@ services:
     expose:
       - '3306'
   chess-player-info-service:
-    container_name: illchess-player-info-service
     image: shane3102/illchess-player-info-service
-    ports:
-      - 1025:420
     depends_on:
       player-info-db:
         condition: service_healthy
@@ -72,25 +63,20 @@ services:
 
   # Api gateway
   chess-api-gateway:
-    container_name: illchess-gateway
     image: shane3102/illchess-gateway
-    ports:
-      - 1337:1337
     environment:
-      SPRING_CLOUD_GATEWAY_DEFAULT-FILTERS[0]: StripPrefix=2
-      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://illchess-game-service:8080
+      SPRING_CLOUD_GATEWAY_ROUTES[0]_URI: http://chess-game-service:8080
       SPRING_CLOUD_GATEWAY_ROUTES[0]_PREDICATES[0]: Path=/gateway/game/**
-      SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://illchess-stockfish-service:2137
+      SPRING_CLOUD_GATEWAY_ROUTES[1]_URI: http://chess-stockfish-service:2137
       SPRING_CLOUD_GATEWAY_ROUTES[1]_PREDICATES[0]: Path=/gateway/stockfish/**
-      SPRING_CLOUD_GATEWAY_ROUTES[2]_URI: http://illchess-player-info-service:420
+      SPRING_CLOUD_GATEWAY_ROUTES[2]_URI: http://chess-player-info-service:420
       SPRING_CLOUD_GATEWAY_ROUTES[2]_PREDICATES[0]: Path=/gateway/player-info/**
 
   # Frontend
   chess-frontend:
-    container_name: illchess-frontend
     image: shane3102/illchess-frontend
     ports:
-      - 4200:80
+      - 4200-4201:80
     depends_on:
       chess-api-gateway:
         condition: service_started

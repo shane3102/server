@@ -69,6 +69,7 @@
     docker-compose
     git
     bash
+    cron
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -85,10 +86,10 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 80 443 22 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 22 4200 4201 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
@@ -98,6 +99,12 @@
 
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchDocked = "ignore";
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "* * * * *	root	sh /etc/nixos/deploy-if-change.sh"
+    ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
