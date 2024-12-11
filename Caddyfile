@@ -1,0 +1,3 @@
+shane3102.pl {
+  reverse_proxy chess-frontend:80
+}

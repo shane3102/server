@@ -24,5 +24,9 @@ docker compose up -d --no-deps --scale chess-player-info-service=1 --no-recreate
 docker compose up -d --no-deps --scale chess-stockfish-service=1 --no-recreate chess-stockfish-service
 docker compose up -d --no-deps --scale chess-game-service=1 --no-recreate chess-game-service
 
+echo "$(date --utc +%FT%TZ): Reloading caddy..."
+export CADDY_CONTAINER=$(docker ps -aqf "name=caddy")
+docker exec -it $CADDY_CONTAINER caddy reload -c /etc/caddy/Caddyfile
+
 echo "$(date --utc +%FT%TZ): Release succeed!"
 

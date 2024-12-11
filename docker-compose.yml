@@ -76,7 +76,7 @@ services:
   chess-frontend:
     image: shane3102/illchess-frontend
     ports:
-      - 4200-4201:80
+      - 4201-4201:80
     depends_on:
       chess-api-gateway:
         condition: service_started
@@ -90,3 +90,14 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+
+  caddy:
+    container_name: caddy
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
