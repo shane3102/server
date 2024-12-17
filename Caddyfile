@@ -1,3 +1,7 @@
 shane3102.pl {
-  reverse_proxy chess-frontend:80
+  	reverse_proxy chess-frontend:80
+}
+
+nexus.shane3102.pl {
+	reverse_proxy nexus:8081
 }
