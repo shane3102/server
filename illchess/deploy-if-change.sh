@@ -1,6 +1,6 @@
 echo "$(date --utc +%FT%TZ): Checking if there are any changes..." 
 
-cd /etc/nixos
+cd /etc/nixos/illchess
 
 export PULL_ILLCHESS_FRONTEND=$(docker pull shane3102/illchess-frontend)
 export PULL_ILLCHESS_GATEWAY=$(docker pull shane3102/illchess-gateway)

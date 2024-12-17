@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /etc/nixos
+cd /etc/nixos/illchess
 
 echo "$(date --utc +%FT%TZ): Running build..."
 docker compose rm -f
