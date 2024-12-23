@@ -1,0 +1,51 @@
+name: leon
+services:
+  leon-db:
+    container_name: postgres-leon-container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: leon
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - caddy_master-network
+  leon-api:
+    container_name: leon-backend
+    image: shane3102/leon-backend
+    depends_on:
+      leon-db:
+        condition: service_healthy
+    environment:
+      # Database configuration
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://leon-db:5432/leon
+
+      # Initialize datasource
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=create
+      - SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQL95Dialect
+      - FRONT_URL=leon-frontend:80
+    networks:
+      - caddy_master-network
+  leon-frontend:
+    container_name: leon-frontend
+    image: shane3102/leon-frontend
+    depends_on:
+      leon-api:
+        condition: service_started
+    networks:
+      - caddy_master-network
+
+networks:
+  caddy_master-network:
+    external: true
