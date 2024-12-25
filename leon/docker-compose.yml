@@ -1,7 +1,7 @@
 name: leon
 services:
   leon-db:
-    container_name: postgres-leon-container
+    container_name: leon-db
     image: postgres
     restart: always
     environment:
@@ -17,7 +17,7 @@ services:
       retries: 5
     networks:
       - caddy_master-network
-  leon-api:
+  leon-backend:
     container_name: leon-backend
     image: shane3102/leon-backend
     depends_on:
@@ -34,14 +34,14 @@ services:
       - SPRING_JPA_HIBERNATE_DDL-AUTO=create
       - SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL=true
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQL95Dialect
-      - FRONT_URL=leon-frontend:80
+      - FRONT_URL=https://leon.shane3102.pl/
     networks:
       - caddy_master-network
   leon-frontend:
     container_name: leon-frontend
     image: shane3102/leon-frontend
     depends_on:
-      leon-api:
+      leon-backend:
         condition: service_started
     networks:
       - caddy_master-network
