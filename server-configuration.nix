@@ -26,7 +26,8 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/5 * * * *	root	sh /etc/nixos/illchess/deploy-if-change.sh"
+      "*/10 * * * *	root	sh /etc/nixos/illchess/deploy-if-change.sh"
+      "5-59/10 * * * *	root	sh /etc/nixos/portfolio/deploy-if-change.sh"
     ];
   };
 }

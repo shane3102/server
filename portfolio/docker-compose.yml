@@ -1,7 +1,6 @@
 name: portfolio
 services: 
   portfolio:
-    container_name: portfolio
     image: shane3102/portfolio
     networks:
       - caddy_master-network
