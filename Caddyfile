@@ -1,5 +1,5 @@
 shane3102.pl {
-  	reverse_proxy chess-frontend:80
+  	reverse_proxy portfolio:80
 }
 
 illchess.shane3102.pl {	
@@ -7,9 +7,13 @@ illchess.shane3102.pl {
 }
 
 leon.shane3102.pl {	
-  	reverse_proxy  leon-frontend:80
+  	reverse_proxy leon-frontend:80
 }
 
 nexus.shane3102.pl {
 	reverse_proxy nexus:8081
+}
+
+bartlomiej-kucharczyk.shane3102.pl {
+	reverse_proxy portfolio:80
 }
