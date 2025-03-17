@@ -10,10 +10,10 @@ leon.shane3102.pl {
   	reverse_proxy leon-frontend:80
 }
 
-nexus.shane3102.pl {
-	reverse_proxy nexus:8081
-}
-
 bartlomiej-kucharczyk.shane3102.pl {
 	reverse_proxy portfolio:80
+}
+
+reposilite.shane3102.pl {
+	reverse_proxy reposlite:8080 
 }

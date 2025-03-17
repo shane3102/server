@@ -1,0 +1,17 @@
+services:
+  reposlite:
+    image: dzikoysk/reposilite:3.5.22
+    volumes:
+      - reposilite-data:/app/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    networks:
+      - caddy_master-network
+
+volumes:
+  reposilite-data: {}
+
+networks:
+  caddy_master-network:
+    external: true
