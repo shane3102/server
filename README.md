@@ -19,5 +19,5 @@ Each app is run via docker compose with images available on public [Docker Hub](
 Currentlly available deployed apps are:
 * Illchess - [link](https://illchess.shane3102.pl), [repository](https://github.com/shane3102/illchess)
 * Leon - [link](https://leon.shane3102.pl), [repository](https://github.com/shane3102/leon)
-* Portfolio - [link](https://bartlomiej.kucharczyk.shane3102.pl), [repository](https://github.com/shane3102/portfolio)
+* Portfolio - [link](https://bartlomiej-kucharczyk.shane3102.pl), [repository](https://github.com/shane3102/portfolio)
 * Reposilite - [link](https://reposilite.shane3102.pl)
