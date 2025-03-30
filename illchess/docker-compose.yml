@@ -102,8 +102,6 @@ services:
   # Frontend
   chess-frontend:
     image: shane3102/illchess-frontend
-    ports:
-      - 4201-4201:80
     depends_on:
       chess-api-gateway:
         condition: service_started
