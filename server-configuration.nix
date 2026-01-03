@@ -23,6 +23,9 @@
     setSocketVariable = true;
   };
 
+  services.logind.lidSwitch = "ignore";
+  services.logind.lidSwitchDocked = "ignore";
+
   services.cron = {
     enable = true;
     systemCronJobs = [
