@@ -33,4 +33,17 @@
       "5-59/10 * * * *	root	sh /etc/nixos/portfolio/deploy-if-change.sh"
     ];
   };
+
+  services.fail2ban = {
+    enable = true;
+    bantime = "168h";
+    maxretry = 5;
+
+    ignoreIP = [
+      "127.0.0.1/8"
+      "192.168.0.0/16"
+      "172.16.0.0/12"
+      "10.0.0.0/8"
+    ];
+  };
 }
