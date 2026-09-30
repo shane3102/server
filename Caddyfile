@@ -17,3 +17,7 @@ bartlomiej-kucharczyk.shane3102.pl {
 reposilite.shane3102.pl {
 	reverse_proxy reposlite:8080 
 }
+
+habits-tracker-server.shane3102.pl {
+	reverse_proxy habits-tracker-server-spring:6969
+}

@@ -1,0 +1,9 @@
+name: habits-tracker-server
+services:
+  habits-tracker-server-spring:
+    image: shane3102/habits-tracker-server-spring
+    networks:
+      - caddy_master-network
+networks:
+  caddy_master-network:
+    external: true
