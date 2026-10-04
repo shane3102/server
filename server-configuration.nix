@@ -31,6 +31,7 @@
     systemCronJobs = [
       "*/10 * * * *	root	sh /etc/nixos/illchess/deploy-if-change.sh"
       "5-59/10 * * * *	root	sh /etc/nixos/portfolio/deploy-if-change.sh"
+      "2-59/10 * * * *	root	sh /etc/nixos/habits-tracker/deploy-if-change.sh"
     ];
   };
 

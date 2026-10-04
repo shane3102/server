@@ -2,6 +2,10 @@ name: habits-tracker-server
 services:
   habits-tracker-server-spring:
     image: shane3102/habits-tracker-server-spring
+    volumes:
+      - ./db_data:/app/data
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlite:/app/data/habits-tracker.db
     networks:
       - caddy_master-network
 networks:
