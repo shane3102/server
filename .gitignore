@@ -1,4 +1,3 @@
 hardware-configuration.nix
 configuration.nix
 .env
-db_data

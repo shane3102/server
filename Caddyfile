@@ -21,3 +21,7 @@ reposilite.shane3102.pl {
 habits-tracker-server.shane3102.pl {
 	reverse_proxy habits-tracker-server-spring:6969
 }
+
+fdroid.shane3102.pl {
+	reverse_proxy fdroid-web:80
+}

@@ -1,0 +1,25 @@
+services:
+  fdroid-web:
+    image: nginx:alpine
+    container_name: fdroid-web
+    volumes:
+      - ./fdroid-data:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    networks:
+      - caddy_master-network
+
+  fdroid-cli:
+    # INITIALIZE COMMAND        -> docker compose run --rm fdroid-cli init
+    # RELOAD APPS IN REPOSITORY -> docker compose run --rm fdroid-cli update --create-metadata
+    image: austozi/fdroidserver:latest
+    container_name: fdroid-cli
+    volumes:
+      - ./fdroid-data:/fdroid
+    working_dir: /fdroid
+    entrypoint: ["fdroid"]
+    networks:
+      - caddy_master-network
+
+networks:
+  caddy_master-network:
+    external: true
