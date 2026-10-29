@@ -1,13 +1,34 @@
 name: habits-tracker-server
 services:
+  
   habits-tracker-server-spring:
     image: shane3102/habits-tracker-server-spring
     volumes:
       - ./db_data:/app/data
     environment:
       SPRING_DATASOURCE_URL: jdbc:sqlite:/app/data/habits-tracker.db
+    depends_on:
+      - habits-tracker-server-custom
     networks:
       - caddy_master-network
+
+  habits-tracker-server-custom:
+    image: shane3102/habits-tracker-server-custom
+    volumes:
+      - ./db_data:/app/data
+    networks:
+      - caddy_master-network
+
+  habits-tracker-server-gateway:
+    image: shane3102/habits-tracker-server-gateway
+    environment:
+      PRIMARY_URL: http://habits-tracker-server-custom:6969
+      FALLBACK_URL: http://habits-tracker-server-spring:6969
+    depends_on:
+      - habits-tracker-server-spring
+    networks:
+      - caddy_master-network
+
 networks:
   caddy_master-network:
     external: true

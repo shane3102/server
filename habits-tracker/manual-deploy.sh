@@ -10,11 +10,15 @@ export OLD_CONTAINERS=$(docker ps -aqf "name=habits-tracker")
 
 echo "$(date --utc +%FT%TZ): Scaling services up..."
 docker compose up -d --no-deps --scale habits-tracker-server-spring=2 --no-recreate habits-tracker-server-spring
+docker compose up -d --no-deps --scale habits-tracker-server-custom=2 --no-recreate habits-tracker-server-custom
+docker compose up -d --no-deps --scale habits-tracker-server-gateway=2 --no-recreate habits-tracker-server-gateway
 
 echo "$(date --utc +%FT%TZ): Scaling down old services..."
 docker container rm -f $OLD_CONTAINERS
 
 docker compose up -d --no-deps --scale habits-tracker-server-spring=1 --no-recreate habits-tracker-server-spring
+docker compose up -d --no-deps --scale habits-tracker-server-custom=1 --no-recreate habits-tracker-server-custom
+docker compose up -d --no-deps --scale habits-tracker-server-gateway=1 --no-recreate habits-tracker-server-gateway
 
 echo "$(date --utc +%FT%TZ): Reloading caddy..."
 export CADDY_CONTAINER=$(docker ps -aqf "name=caddy")
