@@ -2,12 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    vim
-    tmux
     docker
-    docker-compose
-    git
-    bash
     cron
   ];
 
