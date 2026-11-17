@@ -19,11 +19,23 @@ services:
     networks:
       - caddy_master-network
 
+  habits-tracker-server-auth:
+    image: shane3102/habits-tracker-server-auth
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      APP_ENV: prod
+    volumes:
+      - ./db_data:/app/data
+    networks:
+      - caddy_master-network
+
   habits-tracker-server-gateway:
     image: shane3102/habits-tracker-server-gateway
     environment:
       PRIMARY_URL: http://habits-tracker-server-custom:6969
       FALLBACK_URL: http://habits-tracker-server-spring:6969
+      AUTH_URL: http://habits-tracker-server-auth:2137
+      JWT_SECRET: ${JWT_SECRET}
     depends_on:
       - habits-tracker-server-spring
     networks:
